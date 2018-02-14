@@ -56,14 +56,12 @@ CHIP ALU {
    Mux16(a=and, b=sum, sel=f, out=o);
    
    Not16(in=o, out=notO);
-   Mux16(a=o, b=notO, sel=no, out[0..7]=outLSBs, out[8..15]=outMSBs, out[15]=msb);
+   Mux16(a=o, b=notO, sel=no, out[0..7]=outLSBs, out[8..15]=outMSBs, out[15]=ng);
    
    Or8Way(in[0..7]=outMSBs, out=z0);
    Or8Way(in=outLSBs, out=z1);
    Or(a=z0, b=z1, out=notZR);
    Not(in=notZR, out=zr);
-   
-   Or(a=msb, b=false, out=ng);
    
    Or16(a[0..7]=outLSBs, a[8..15]=outMSBs, b=false, out=out);
 }
